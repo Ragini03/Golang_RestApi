@@ -1,0 +1,24 @@
+go is statically typed lang
+
+fmt- format pckg. implements formatted I/O
+
+HandleFunc: makes  any normal function as an HTTP handler. 1st gives the path and 2nd calls the func when path is reached
+listenandserve: we tell the server to listen into specified port and we use DefaultServeMux, hence, nil
+
+fprintf- formats according to a format specifier and writes to w. w:defines output. "": string to print
+
+showsummary: 
+jsonData := map[string]string: puts json obj in map form(key-value pair format) forms a struct
+marshal:= converts struct into byte data 
+post:= sends this data to the server
+set:= appends additional data 
+create client
+error handle the client creation
+read all the data on server
+print on site
+
+
+goroutine- way of doing tasks concurrently.Go Runtime scheduler  manage their lifecycles. only during go runtine
+
+
+
