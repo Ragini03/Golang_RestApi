@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -37,9 +38,17 @@ func main() {
 
 	//Route Handlers - Endpoints ->
 	r.HandleFunc("/", Home).Methods("GET")
-	r.HandleFunc("/buyItem/{name}", getItems).Methods("GET")
-	r.HandleFunc("/buyItemqty/{name}&{quantity}", getItemsByQty).Methods("GET")
-	r.HandleFunc("/buyItemqtyprice/{name}&{quantity}&{price}", getItemsByPrice).Methods("GET")
+
+	//Concurrent calls using Goroutine
+	go r.HandleFunc("/buyItem/{name}", getItems).Methods("GET")
+	time.Sleep(1 * time.Second)
+
+	go r.HandleFunc("/buyItemqty/{name}&{quantity}", getItemsByQty).Methods("GET")
+	time.Sleep(1 * time.Second)
+
+	go r.HandleFunc("/buyItemqtyprice/{name}&{quantity}&{price}", getItemsByPrice).Methods("GET")
+	time.Sleep(1 * time.Second)
+
 	r.HandleFunc("/view", view).Methods("GET")
 
 	fmt.Println("Server started on port:3000")
@@ -179,5 +188,5 @@ func view(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "\n 66-907-8874 \t wheat \t 22 \t\t $89.96")
 	fmt.Fprintf(w, "\n 51-268-1902 \t barley  26 \t\t $50.92")
 	fmt.Fprintf(w, "\n 68-684-1026 \t rye \t 14 \t\t $80.90")
-	fmt.Println("Endpoint Hit: viewPage")
+	fmt.Println("Endpoint Hit: view")
 }
